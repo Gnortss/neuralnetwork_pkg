@@ -1,11 +1,15 @@
 import numpy as np
 from neuralnetwork import *
+import random
 
-nn = NeuralNetwork(2, [3, 4, 3], 2)
-# print(nn.feedforward(np.array([1,1])))
+training_data = [((0,0), (0)), ((0,1), (1)), ((1,0), (1)), ((1,1), (0))]
 
-# print('layer outputs')
-# for layer in nn.layers:
-#   print(layer.outputs, layer.act_d(layer.outputs))
+nn = NeuralNetwork(2, [2], 1)
 
-nn.train(np.array([1, 1]), np.array([0, 1]))
+for _ in range(100000):
+  inputs, targets = random.choice(training_data)
+  nn.train(np.array(inputs), np.array(targets))
+
+
+for inputs, targets in training_data:
+  print(f"{inputs} -> {targets}: nn: {nn.feedforward(np.array(inputs))}")

@@ -40,10 +40,15 @@ class NeuralNetwork:
     def backpropagate(layer_index, errors):
       l = self.layers[layer_index]
       l_1 = self.layers[layer_index-1]
-      gradient = l.act_d(l.outputs) * errors * self.learning_rate
-      delta_w = gradient.reshape(len(gradient), 1) @ np.atleast_2d(l_1.outputs)
+      gradients = l.act_d(l.outputs) * errors * self.learning_rate
+      if layer_index > 0:
+        delta_w = gradients.reshape(len(gradients), 1) @ np.atleast_2d(l_1.outputs)
+      else:
+        delta_w =  gradients.reshape(len(gradients),1 ) @ np.atleast_2d(inputs)
+      # Adjust weights and biases by their deltas
       l.w = l.w + delta_w
-      if layer_index == 1:
+      l.b = l.b + gradients
+      if layer_index == 0:
         return
       n_errors = np.transpose(l.w) @ errors
       backpropagate(layer_index-1, n_errors)
