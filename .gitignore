@@ -1,5 +1,8 @@
-tests/__pycache__
-neuralnetwork_pkg/__pycache__/
+# tests/__pycache__
+# neuralnetwork_pkg/__pycache__/
+# neuralnetwork_pkg/layers/__pycache__/
+
+*/__pycache__
 
 # Editors
 .vscode/
